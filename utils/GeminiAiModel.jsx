@@ -22,7 +22,7 @@ const cleanJson = text
   .replace(/^```(?:json)?[\s\n]*/i, '')
   .replace(/[\s\n]*```$/, '');
 
-  console.log("Cleaned JSON string:", cleanJson); // 🔍 this should NOT have backticks
+  // console.log("Cleaned JSON string:", cleanJson); 
     return cleanJson;
 
 

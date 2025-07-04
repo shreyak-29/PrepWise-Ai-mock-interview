@@ -17,52 +17,73 @@ import { db } from "@/utils/db";
 import { MockInterview } from "@/utils/schema";
 import { v4 as uuidv4 } from 'uuid';
 import moment from "moment/moment";
+import { useUser } from "@clerk/nextjs";
 
 
 
 function AddNewInterview() {
+  const {user} = useUser();
   const [openDialog, setOpenDialog] = useState(false);
   const [jobPosition, setJobPosition] = useState("");
   const [jobDescription, setJobDescription] = useState("");
   const [jobExperience, setjobExperience] = useState("");
   const [loading, setLoading] = useState(false);
   const [jsonResponse, setJsonResponse] = useState([]);
+  const router = useRouter();
 
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    let parsed ;
+    let jsonOutput;
+
+
     try {
-      const jsonOutput = await generateInterviewQuestions(
+       jsonOutput = await generateInterviewQuestions(
         jobPosition,
         jobDescription,
         jobExperience
       );
-      const parsed = JSON.parse(jsonOutput);
+
+      if (!jsonOutput) {
+      throw new Error("generateInterviewQuestions returned null/undefined");
+    }
+      parsed = JSON.parse(jsonOutput);
       console.log(parsed);
       setOpenDialog(false); // Close dialog if success
       setJsonResponse(parsed);
-    } catch (err) {
+    } 
+    catch (err) {
       console.error("Error:", err);
       alert("Something went wrong!");
+      return;
     }
 
-    if (parsed){
+    try {
+      console.log("jsonOutput:", jsonOutput);
+console.log("typeof jsonOutput:", typeof jsonOutput);
+console.log("jsonOutput is null?", jsonOutput === null);
+
     const resp = await db.insert(MockInterview)
     .values({
       mockId:uuidv4(),
-      jsonMockResp: parsed,
+      jsonMockResponse: jsonOutput,
       jobPosition: jobPosition,
-      jobDescription: jobDescription,
+      jobDesc: jobDescription,
       jobExperience:jobExperience,
-      createdBy:user?.primaryEmailAdress?.emailAdress,
+      createdBy:user?.primaryEmailAddress?.emailAddress,
       createdAt: moment().format('DD-MM-YYYY')
 
     }).returning({mockId:MockInterview.mockId})
 
     console.log("inserted id:", resp)
+    if (resp){
+      setOpenDialog(false); 
+      router.push(`/dashboard/interview/${resp[0].mockId}`);
+    }
   }
-  else{
-    console.log("error");
+  catch(dbError){
+    console.log("error",dbError);
   }
     setLoading(false);
   };
