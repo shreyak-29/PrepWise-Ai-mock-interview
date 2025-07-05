@@ -25,6 +25,7 @@
     "next": "15.3.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hook-speech-to-text": "^0.8.0",
     "react-webcam": "^7.2.0",
     "tailwind-merge": "^3.3.1",
     "uuid": "^11.1.0"
@@ -33,6 +34,7 @@
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^24.0.10",
+    "@types/react": "19.1.8",
     "drizzle-kit": "^0.31.4",
     "eslint": "^9",
     "eslint-config-next": "15.3.4",

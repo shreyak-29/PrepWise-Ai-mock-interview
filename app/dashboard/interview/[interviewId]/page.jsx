@@ -6,6 +6,8 @@ import React, { useEffect, useState } from "react";
 import Webcam from "react-webcam";
 import { Ghost, Lightbulb, WebcamIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 function Interview({ params }) {
   const [interviewData, setInterviewData] = useState();
@@ -88,7 +90,11 @@ function Interview({ params }) {
           ) : (
             <>
               <WebcamIcon className="h-72 w-full my-7 p-20 bg-secondary rounded-lg border" />
-              <Button variant="ghost" onClick={() => setWebCamEnabled(true)}>
+              <Button
+                className="w-full"
+                variant="ghost"
+                onClick={() => setWebCamEnabled(true)}
+              >
                 {" "}
                 Enable Webcam and Microphone{" "}
               </Button>
@@ -97,9 +103,10 @@ function Interview({ params }) {
         </div>
       </div>
       <div className="flex justify-end items-end">
-      <Button>Start Interview</Button>
+        <Link href={`/dashboard/interview/${params.interviewId}/start`}>
+          <Button>Start Interview</Button>
+        </Link>
       </div>
-
     </div>
   );
 }

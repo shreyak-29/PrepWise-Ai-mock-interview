@@ -29,7 +29,7 @@ function AddNewInterview() {
   const [jobExperience, setjobExperience] = useState("");
   const [loading, setLoading] = useState(false);
   const [jsonResponse, setJsonResponse] = useState([]);
-  const router = useRouter();
+  // const router = useRouter();
 
   const onSubmit = async (e) => {
     e.preventDefault();
