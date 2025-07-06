@@ -8,12 +8,14 @@ import { Ghost, Lightbulb, WebcamIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
+import { use } from "react";
 function Interview({ params }) {
+    const { interviewId } = use(params);
+  
   const [interviewData, setInterviewData] = useState();
   const [webCamEnabled, setWebCamEnabled] = useState(false);
   useEffect(() => {
-    console.log(params.interviewId);
+    console.log(interviewId);
     GetInterviewDetails();
   }, []);
 
@@ -21,7 +23,7 @@ function Interview({ params }) {
     const result = await db
       .select()
       .from(MockInterview)
-      .where(eq(MockInterview.mockId, params.interviewId));
+      .where(eq(MockInterview.mockId, interviewId));
     setInterviewData(result[0]);
   };
   return (
@@ -103,7 +105,7 @@ function Interview({ params }) {
         </div>
       </div>
       <div className="flex justify-end items-end">
-        <Link href={`/dashboard/interview/${params.interviewId}/start`}>
+        <Link href={`/dashboard/interview/${interviewId}/start`}>
           <Button>Start Interview</Button>
         </Link>
       </div>

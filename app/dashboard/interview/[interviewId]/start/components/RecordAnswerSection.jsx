@@ -1,12 +1,14 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Webcam from "react-webcam";
 import {Button } from "../../../../../../components/ui/button";
 import useSpeechToText from 'react-hook-speech-to-text';
 import Image from "next/image";
+import { CircleStop, Mic, Mic2Icon } from "lucide-react";
 
 
 function RecordAnswerSection() {
+  const [userAnswer, setuserAnswer] = useState('');
   const {
     error,
     interimResult,
@@ -18,11 +20,17 @@ function RecordAnswerSection() {
     continuous: true,
     useLegacyResults: false
   });
+
+  useEffect(() => {
+    results.map((result) => {
+      setuserAnswer(prevAns => prevAns + result?.transcript);
+    });
+  }, [results]);
   
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="flex flex-col justify-center items-center rounded-lg p-5 mt-15">
-        <Image
+        <Image alt="webcam"
           src={"/webcam.png"}
           width={350}
           height={350}
@@ -38,18 +46,17 @@ function RecordAnswerSection() {
         />
       </div>
 
-<Button className="my-5" variant="outline">Record Audio and Video</Button>
-<h1>Recording: {isRecording.toString()}</h1>
-      <button onClick={isRecording ? stopSpeechToText : startSpeechToText}>
-        {isRecording ? 'Stop Recording' : 'Start Recording'}
-      </button>
-      <ul>
-        {results.map((result) => (
-          <li key={result.timestamp}>{result.transcript}</li>
-        ))}
-        {interimResult && <li>{interimResult}</li>}
-      </ul>
-      {error && <div style={{color: 'red'}}>Speech-to-text error: {error}</div>}
+<Button className="my-5" variant="outline" onClick={isRecording?stopSpeechToText:startSpeechToText}>
+  {isRecording ? (
+    <h2 className="text-red-400  flex gap-2">
+      <CircleStop />Stop Recording...
+    </h2>
+  ) : (
+    <div className="flex gap-2"><Mic/>
+    Record Answer</div>
+  
+  )}
+</Button>
  </div>
   );
 }

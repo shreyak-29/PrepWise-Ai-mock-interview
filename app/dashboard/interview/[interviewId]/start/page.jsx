@@ -8,22 +8,26 @@ import QuestionSection from "./components/QuestionSection";
 import RecordAnswerSection from "./components/RecordAnswerSection";
 
 function StartInterview({ params }) {
+  const { interviewId } = use(params);
   const [interviewData, setInterviewData] = useState();
   const[mockInterviewQuestions, setMockInterviewQuestions] = useState([]);
   const [activeQuestionIndex, setActiveQuestionIndex] = useState(0);
+
   useEffect(() => {GetInterviewDetails()}, []);
 
   const GetInterviewDetails = async () => {
     const result = await db
       .select()
       .from(MockInterview)
-      .where(eq(MockInterview.mockId, params.interviewId));
+      .where(eq(MockInterview.mockId, interviewId));
     setInterviewData(result[0]);
     const jsonMockResponse=JSON.parse( result[0].jsonMockResponse);
     console.log("jsonMockResponse", jsonMockResponse);
     setMockInterviewQuestions(jsonMockResponse);
     setInterviewData(result[0]);
   };
+
+
   return <div>
    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
     {/* Questions */}
