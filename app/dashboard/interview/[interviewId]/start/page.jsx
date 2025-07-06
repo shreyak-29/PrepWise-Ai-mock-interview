@@ -34,6 +34,8 @@ function StartInterview({ params }) {
     <QuestionSection 
     mockInterviewQuestions = {mockInterviewQuestions}
     activeQuestionIndex={activeQuestionIndex}
+    setActiveQuestionIndex={setActiveQuestionIndex}
+
     />
     
 

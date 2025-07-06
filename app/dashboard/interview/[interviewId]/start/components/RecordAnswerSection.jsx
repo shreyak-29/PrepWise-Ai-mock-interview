@@ -1,10 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Webcam from "react-webcam";
-import {Button } from "../../../../../../components/ui/button";
+import {Button } from "@components/ui/button";
 import useSpeechToText from 'react-hook-speech-to-text';
 import Image from "next/image";
 import { CircleStop, Mic, Mic2Icon } from "lucide-react";
+import { toast, Toaster } from "sonner";
 
 
 function RecordAnswerSection() {
@@ -22,11 +23,30 @@ function RecordAnswerSection() {
   });
 
   useEffect(() => {
-    results.map((result) => {
-      setuserAnswer(prevAns => prevAns + result?.transcript);
-    });
+    console.log("Speech results:", results);
+    setuserAnswer(results.map(r => r.transcript).join(' '));
   }, [results]);
   
+  useEffect(() => {
+    if (!isRecording && userAnswer) {
+      if (userAnswer.length < 10) {
+        toast("Error while recording answer, please try again");
+      }
+    }
+  }, [isRecording, userAnswer]);
+  
+  const SaveUserAnswer = () => {
+    if (isRecording) {
+      stopSpeechToText();
+    } else {
+      startSpeechToText();
+    }
+  }
+
+  useEffect(() => {
+    if (error) console.error("Speech-to-text error:", error);
+  }, [error]);
+
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="flex flex-col justify-center items-center rounded-lg p-5 mt-15">
@@ -46,7 +66,8 @@ function RecordAnswerSection() {
         />
       </div>
 
-<Button className="my-5" variant="outline" onClick={isRecording?stopSpeechToText:startSpeechToText}>
+<Button className="my-5" variant="outline" onClick={SaveUserAnswer}
+>
   {isRecording ? (
     <h2 className="text-red-400  flex gap-2">
       <CircleStop />Stop Recording...
@@ -57,8 +78,14 @@ function RecordAnswerSection() {
   
   )}
 </Button>
+<Button onClick={() => {
+  console.log("User answer:", userAnswer);
+  alert("User answer: " + userAnswer);
+}}>Show answer</Button>
+{error && <div style={{color: 'red'}}>Speech-to-text error: {error}</div>}
  </div>
   );
 }
+
 
 export default RecordAnswerSection;

@@ -1,4 +1,3 @@
-// import { varbinary, varchar } from "drizzle-orm/mysql-core";
 import { pgTable, serial , varchar, text} from "drizzle-orm/pg-core";  
 
 export const MockInterview = pgTable ('mockInterview', {
