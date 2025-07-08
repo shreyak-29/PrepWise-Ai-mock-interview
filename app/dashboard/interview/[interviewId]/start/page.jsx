@@ -5,7 +5,8 @@ import { eq } from "drizzle-orm";
 import { db } from "@lib/utils/db";
 import { MockInterview } from "@lib/utils/schema";
 import QuestionSection from "./components/QuestionSection";
-import RecordAnswerSection from "./components/RecordAnswerSection";
+import dynamic from "next/dynamic";
+
 
 function StartInterview({ params }) {
   const { interviewId } = use(params);
@@ -26,7 +27,10 @@ function StartInterview({ params }) {
     setMockInterviewQuestions(jsonMockResponse);
     setInterviewData(result[0]);
   };
-
+const RecordAnswerSection = dynamic(
+  () => import("./components/RecordAnswerSection"),
+  { ssr: false } // 🔥 disables server-side rendering for this component
+);
 
   return <div>
    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
