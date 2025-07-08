@@ -12,7 +12,6 @@ function RecordAnswerSection() {
   const [userAnswer, setuserAnswer] = useState('');
   const {
     error,
-    interimResult,
     isRecording,
     results,
     startSpeechToText,
