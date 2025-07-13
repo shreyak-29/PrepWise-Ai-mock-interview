@@ -44,7 +44,11 @@ const RecordAnswerSection = dynamic(
     
 
     {/* Video/Audio recording */}
-    <RecordAnswerSection/>
+    <RecordAnswerSection
+      mockInterviewQuestions = {mockInterviewQuestions}
+    activeQuestionIndex={activeQuestionIndex}
+    setActiveQuestionIndex={setActiveQuestionIndex}
+    interviewData={interviewData}/>
    </div>
 
   </div>;
