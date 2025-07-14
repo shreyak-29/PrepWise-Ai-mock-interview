@@ -71,6 +71,8 @@ function RecordAnswerSection({
         createdAt: dayjs().format("YYYY-MM-DD HH:mm:ss"),
       });
       console.log("User answer and feedback inserted into DB");
+          toast.success("Answer saved successfully!");
+
     } catch (err) {
       console.error("DB insert error:", err);
       toast.error("Failed to save answer to database");
@@ -105,7 +107,7 @@ function RecordAnswerSection({
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <div className="flex flex-col justify-center items-center rounded-lg p-5 mt-15">
+      <div className="flex flex-col justify-center items-center rounded-lg p-5 mt-10">
         <Image
           alt="webcam"
           src="/webcam.png"
@@ -165,12 +167,12 @@ function RecordAnswerSection({
         <div className="mt-4">
           <div className="flex items-center gap-2 text-blue-600">
             <div className="h-5 w-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
-            <span>Generating feedback...</span>
+            <span>Recording Answer...</span>
           </div>
         </div>
       )}
 
-      {/* Feedback Display */}
+      {/* Feedback Display
       {!loading && feedback && (
         <div className="mt-4 bg-green-50 p-4 rounded w-[350px]">
           <h3 className="font-semibold mb-2">Feedback:</h3>
@@ -178,7 +180,7 @@ function RecordAnswerSection({
             {JSON.stringify(feedback, null, 2)}
           </pre>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

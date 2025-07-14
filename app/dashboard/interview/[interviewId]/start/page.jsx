@@ -6,6 +6,9 @@ import { db } from "@lib/utils/db";
 import { MockInterview } from "@lib/utils/schema";
 import QuestionSection from "./components/QuestionSection";
 import dynamic from "next/dynamic";
+import {Button} from "@components/ui/button";
+import Link from "next/link";
+
 
 
 function StartInterview({ params }) {
@@ -49,6 +52,17 @@ const RecordAnswerSection = dynamic(
     activeQuestionIndex={activeQuestionIndex}
     setActiveQuestionIndex={setActiveQuestionIndex}
     interviewData={interviewData}/>
+   </div>
+
+   <div className="flex justify-end gap-5 mt-5">
+  { activeQuestionIndex>0 && 
+  <Button onClick={()=>setActiveQuestionIndex(activeQuestionIndex-1)}>Previous Question</Button>}
+   {  activeQuestionIndex!=mockInterviewQuestions.length-1  &&
+   <Button onClick={()=>setActiveQuestionIndex(activeQuestionIndex+1)}>Next Question</Button>}
+{  activeQuestionIndex==mockInterviewQuestions.length-1 && 
+<Link href={`/dashboard/interview/${interviewData?.mockId}/feedback`}>
+<Button>Submit Interview</Button>
+</Link>}
    </div>
 
   </div>;
