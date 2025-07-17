@@ -33,7 +33,8 @@ function RecordAnswerSection({
   } = useSpeechToText({
     continuous: true,
     useLegacyResults: false,
-  });
+  })
+  ;
 
   useEffect(() => {
     if (results.length > 0) {
