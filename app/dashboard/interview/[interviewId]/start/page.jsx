@@ -38,12 +38,12 @@ const RecordAnswerSection = dynamic(
   return <div>
    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
     {/* Questions */}
-    <QuestionSection 
-    mockInterviewQuestions = {mockInterviewQuestions}
-    activeQuestionIndex={activeQuestionIndex}
-    setActiveQuestionIndex={setActiveQuestionIndex}
-
-    />
+  <QuestionSection 
+  mockInterviewQuestions={mockInterviewQuestions}
+  activeQuestionIndex={activeQuestionIndex}
+  setActiveQuestionIndex={setActiveQuestionIndex}
+  interviewData={interviewData} 
+/>
     
 
     {/* Video/Audio recording */}
@@ -54,7 +54,7 @@ const RecordAnswerSection = dynamic(
     interviewData={interviewData}/>
    </div>
 
-   <div className="flex justify-end gap-5 mt-5">
+   {/* <div className="flex justify-end gap-5 mt-5">
   { activeQuestionIndex>0 && 
   <Button onClick={()=>setActiveQuestionIndex(activeQuestionIndex-1)}>Previous Question</Button>}
    {  activeQuestionIndex!=mockInterviewQuestions.length-1  &&
@@ -63,7 +63,7 @@ const RecordAnswerSection = dynamic(
 <Link href={`/dashboard/interview/${interviewData?.mockId}/feedback`}>
 <Button>Submit Interview</Button>
 </Link>}
-   </div>
+   </div> */}
 
   </div>;
 }
