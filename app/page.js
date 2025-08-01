@@ -49,8 +49,7 @@ export default function Home() {
           </p>
 
           {/* Enhanced CTA button */}
-          <Link href="/dashboard" passHref legacyBehavior>
-            <a className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-gradient-to-r from-purple-600 to-cyan-600 rounded-full shadow-xl hover:shadow-2xl hover:shadow-purple-500/50 transform hover:scale-110 transition-all duration-300 mb-12 overflow-hidden">
+          <Link href="/dashboard" className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-gradient-to-r from-purple-600 to-cyan-600 rounded-full shadow-xl hover:shadow-2xl hover:shadow-purple-500/50 transform hover:scale-110 transition-all duration-300 mb-12 overflow-hidden">
               <span className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
               <span className="relative flex items-center gap-2">
                 Get Started
@@ -58,7 +57,7 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </span>
-            </a>
+            
           </Link>
 
           {/* Features section with cards */}

@@ -14,7 +14,7 @@ export async function generateInterviewQuestions(
   } interview questions along with answers in JSON format. Provide each as an object with 'question' and 'answer' fields.`;
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = await response.text();
